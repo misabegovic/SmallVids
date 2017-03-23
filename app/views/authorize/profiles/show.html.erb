@@ -1,0 +1,27 @@
+<div class="container">
+  <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <div class="row">
+      <div class="col">
+        <%= link_to @user.profile_photo.url, target: '_blank' do %>
+          <%= image_tag @user.profile_photo.medium.url, class: 'rounded-circle mr-2'%>
+        <%end%>
+        <br><br>
+        <h4><%= @user.username%></h4>
+        <br>
+        <% if current_user == @user %>
+          <%= link_to 'Edit Profile',edit_profile_path(@user.id), class: "btn btn-secondary"%>
+        <%end%>
+
+        <p><%= @user.username%> has <%=@approved_posts.length%> approved posts and <%= @not_approved_num%> waiting to be approved</p>
+      </div>
+      <div class="col">
+        <% if current_user == @user %>
+          <h3>Your posts: </h3>
+        <%else%>
+          <h3><%= @user.first_name%>'s networks: </h3>
+        <%end%>
+        <%= render @approved_posts%>
+      </div>
+    </div>
+  </main>
+</div>

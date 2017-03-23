@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row">
+		<div class="col-3">
+			<%= form_for :search, url: pages_path, method: :get do |f|%>
+				<%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
+				<small>Seperate each tag with a comma</small>
+				<%= f.submit 'Search', class: "btn btn-secondary"%>
+			<%end%>
+			<br>
+		</div>
+		<div class="col-2">
+			<p>Popular tags:</p>
+		</div>
+		<div class="col">
+			<% @most_used_tags.each do |tag|%>
+				<%= link_to tag.name, tag_path(tag.name), class: "btn btn-secondary"%>
+			<%end%>
+		</div>
+	</div>
+	<div class="row">
+		<%= render @video_posts%>
+	</div>
+</div>

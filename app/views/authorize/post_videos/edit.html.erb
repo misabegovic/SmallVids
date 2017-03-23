@@ -1,0 +1,22 @@
+<div class="container">
+	<%= form_for(@video, url: {controller: 'post_videos', action: 'update'}, html: {multipart: true, method: :patch}) do |f|%>
+		<br>
+		<br>
+		<p>Change the video:</p>
+		<small>Video must be under 10 MB of size</small>
+		<br>
+		<%= f.file_field :uploaded_video %>
+
+		<br>
+		<br>
+		<div class="row">
+			<div class="col">
+				<p>Tags: </p>
+				<%= f.text_field :tag_list, placeholder: 'Tag it', class: "form-control" %>
+				<small>Separate each tag with a comma</small>
+			</div>
+		</div>
+		<br>
+		<%= f.submit 'Submit', class: "btn btn-primary" %>
+	<%end%>
+</div>

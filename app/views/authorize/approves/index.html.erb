@@ -1,0 +1,11 @@
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<% if @videos.empty? %>
+				<h4>No videos for approval</h4>
+			<%else%>
+				<%= render @videos%>
+			<%end%>
+		</div>
+	</div>
+</div>

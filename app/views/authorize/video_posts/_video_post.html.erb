@@ -1,0 +1,17 @@
+<div class= "btn btn-secondary" %>
+	<% if current_user.is_admin && video_post.is_approved == false%>
+	<%= link_to 'Approve', approfe_path(video_post), method: :patch, class: "btn btn-primary"%>
+	<br>
+	<%end%>
+	<%= video_tag video_post.uploaded_video_url, :size => "320x240", :controls => true %>
+	<div class="row">
+		<div class="col">
+			<p>
+				<%video_post.tag_list.each do |tag|%>
+					#<%= tag%>
+				<%end%>
+			</p>
+		</div>
+	</div>
+	<%= link_to 'Open', video_post, class: "btn btn-secondary" %>
+</div>

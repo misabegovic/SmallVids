@@ -1,0 +1,35 @@
+<div class="container">
+	<%= form_for(@video, url: {controller: 'post_videos', action: 'create'}, html: {multipart: true, method: :post}) do |f|%>
+		<br>
+		<p>Upload a video:</p>
+		<small>Video must be under 10 MB of size</small>
+		<%= f.file_field :uploaded_video %>
+
+		<br>
+		<br>
+		<div class="row">
+			<div class="col">
+				<p>Tag the video so others can find it easier:</p>
+				<%= f.text_field :tag_list,placeholder:'Tag it', class: "form-control" %>
+				<small>Separate each tag with a comma</small>
+			</div>
+		</div>
+
+		<br>
+		<div class="row">
+			<div class="col">
+				<%= f.submit 'Save', class: "btn btn-primary" %>
+			</div>
+		</div>
+	<%end%>
+
+	<% if @video.errors.any? %>
+	  <div class="alert alert-danger col-md-8 offset-md-2 mt-2" role="alert">
+	    <ul>
+	    <% @video.errors.full_messages.each do |message| %>
+	      <li><%= message %></li>
+	    <% end %>
+	    </ul>
+	  </div>
+	<% end %>
+</div>

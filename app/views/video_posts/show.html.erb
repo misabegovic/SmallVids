@@ -1,0 +1,111 @@
+<div class="container">
+	<br>
+	<div class="row">
+		<div class="col-3">
+			<br>
+			<div class="row">
+				<%@video_post.tag_list.each do |tag|%>
+					<%= link_to tag, tag_path(tag), class: "btn btn-secondary"%>
+				<%end%>
+			</div>
+
+			<br>
+			<%= link_to profile_path(@video_post.user) do %>
+      	<%= image_tag @video_post.user.profile_photo.thumb.url, class: 'rounded-circle mr-2'%>
+      <%end%>
+			<p>Posted by: <%= link_to @video_post.user.username, profile_path(@video_post.user)%></p>
+			
+			<br>
+			<%if session[:user_id].present? && current_user.is_admin %>
+				<%= link_to 'Delete', post_video_path(@video_post), method: :delete, data: { confirm: 'Sigurno želiš obrisati ovaj post?' }, class: "btn btn-primary" %>
+			<%end%>
+
+			<br>
+			<br>
+			<div class="row">
+				<div class="col">
+					<%= social_share_button_tag(@video_post.uploaded_video_url) %>
+				</div>
+			</div>
+
+			<% if session[:user_id].present? %>
+				<% if (current_user.is_admin || @video_post.user == current_user) && @video_post.is_approved == false%>
+					<%= link_to "Edit", edit_post_video_path(@video_post.id), data: { confirm: 'Jeste li sigurni da želite editovati post?' }, class: "btn btn-secondary" %>
+				<%end%>
+
+				<br><br>
+				<%= form_for(@video_comment, url: {controller: 'video_comments', action: 'create'}, html: {multipart: true, method: :post}) do |f|%>
+					<%= f.hidden_field :video_post_id, value: @video_post.id%>
+					<%= f.text_area :content, value: nil, placeholder: 'Comment', class: "editable" %>
+
+					<br>
+					<%= f.submit "Comment", class: "btn btn-secondary"%>
+				<%end%>
+			<%end%>
+		</div>
+
+		<div class="col">
+			<div class="col" style="text-align: center;">
+				<br>
+				<%= video_tag @video_post.uploaded_video_url, :size => "500x350", :controls => true %>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<%= form_for @video_post, method: :patch do |f|%>
+						<%= f.submit 'Meh', class: "btn btn-primary" %>
+					<%end%>
+				</div>
+				<div class="col">
+					<%= form_for @video_post, method: :patch do |f|%>
+						<%= f.submit "It's Ok", class: "btn btn-primary" %>
+					<%end%>
+				</div>
+				<div class="col">
+					<%= form_for @video_post, method: :patch do |f|%>
+						<%= f.submit 'I like it', class: "btn btn-primary" %>
+					<%end%>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col"><p><%= @video_post.is_meh%>x 'meh'd</p></div>
+				<div class="col"><p><%= @video_post.is_ok%>x 'ok'd</p></div>
+				<div class="col"><p><%= @video_post.i_like_it%>x 'like'd</p></div>
+			</div>
+
+			<br>
+			<% @video_post.video_comments.each do |comment| %>
+				By: <%= link_to comment.user.username, profile_path(comment.user)%>
+				<p><%= simple_format comment.content%><br><small><%= comment.created_at%></small></p>
+				<%if session[:user_id].present? && (current_user.is_admin || comment.user == current_user) %>
+					<%= link_to "Delete", video_comment_path(comment), method: :delete, data: { confirm: 'Sigurno želiš obrisati ovaj komentar?' }, class: "btn btn-primary" %>
+				<%end%>
+				<br>
+			<%end%>
+		</div>
+	</div>
+</div>
+
+<script>
+  var editor = new MediumEditor('.editable', {
+    toolbar: {
+      allowMultiParagraphSelection: true,
+      buttons: ['bold', 'italic', 'underline', 'anchor', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'quote'],
+      diffLeft: 0,
+      diffTop: -10,
+      firstButtonClass: 'medium-editor-button-first',
+      lastButtonClass: 'medium-editor-button-last',
+      relativeContainer: null,
+      standardizeSelectionStart: false,
+      static: false,
+      /* options which only apply when static is true */
+      align: 'center',
+      sticky: false,
+      updateOnEmptySelection: false
+    },
+    placeholder: {
+      text: 'Leave a Comment here...',
+      hideOnClick: true
+    }
+  });
+</script>
