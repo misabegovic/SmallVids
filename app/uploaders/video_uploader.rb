@@ -14,7 +14,7 @@ class VideoUploader < CarrierWave::Uploader::Base
   end
 
   def extension_whitelist
-    %w(webm mp4)
+    %w(webm mp4 mp3 flv f4v f4p f4a f4b 3g2 3gp svi m4v mpg mp2 mpeg mpe mpv m4p amv asf wmv mov qt gifv mkv)
   end
 
   # Override the filename of the uploaded files:
