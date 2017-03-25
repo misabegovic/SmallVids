@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     resources :post_videos
     resources :approves
     resources :profiles
+    resources :communities
   end
 end

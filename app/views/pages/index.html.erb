@@ -23,8 +23,12 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col">
-			<%= render @videos%>
-		</div>
+		<%if @videos.empty? %>
+			<h5>Videos are not yet approved</h5>
+		<%else%>
+			<div class="col">
+				<%= render @videos%>
+			</div>
+		<%end%>
 	</div>
 </div>

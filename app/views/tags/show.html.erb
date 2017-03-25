@@ -23,6 +23,10 @@
 		</div>
 	</div>
 	<div class="row">
-		<%= render @video_posts%>
+		<%if @video_posts.empty? %>
+			<h5>Videos are not yet approved</h5>
+		<%else%>
+			<%= render @video_posts%>
+		<%end%>
 	</div>
 </div>

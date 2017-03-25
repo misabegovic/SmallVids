@@ -3,6 +3,7 @@
 	<% if current_user.is_admin %>
 		<%= link_to 'Approve', approves_path, method: 'get', class: "btn btn-primary" %>
 	<%end%>
+	<%= link_to 'Community', communities_path, method: 'get', class: "btn btn-secondary"%>
 	<%= link_to 'Post a video', post_videos_path, method: 'get', class: "btn btn-primary" %>
 	<%= link_to 'Logout', session_path(session[:user_id]), method: 'delete', class: "btn btn-secondary" %>
 <%else%>

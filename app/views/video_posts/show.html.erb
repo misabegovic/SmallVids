@@ -15,6 +15,11 @@
       <%end%>
 			<p>Posted by: <%= link_to @video_post.user.username, profile_path(@video_post.user)%></p>
 			
+			<%if @video_post.is_approved == false%>
+				<br>
+				<p style="color: red;">Not approved by admin !</p>
+			<%end%>
+
 			<br>
 			<%if session[:user_id].present? && current_user.is_admin %>
 				<%= link_to 'Delete', post_video_path(@video_post), method: :delete, data: { confirm: 'Sigurno želiš obrisati ovaj post?' }, class: "btn btn-primary" %>
@@ -49,7 +54,12 @@
 				<br>
 				<%= video_tag @video_post.uploaded_video_url, :size => "500x350", :controls => true %>
 			</div>
-
+			<div class="row">
+				<p>Copy embed source:</p>
+				<textarea class="form-control" rows="2" style="resize: none;"><iframe width="560" height="315" src="<%= @video_post.uploaded_video_url%>" frameborder="0" allowfullscreen></iframe>
+				</textarea>
+			</div>
+			<br>
 			<div class="row">
 				<div class="col">
 					<%= form_for @video_post, method: :patch do |f|%>
