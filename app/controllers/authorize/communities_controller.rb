@@ -3,15 +3,23 @@ module Authorize
     before_action :authorize
 
     def index
-      @most_used_tags = ActsAsTaggableOn::Tag.most_used(10)
-      @video_posts = VideoPost.all.where(is_approved: true).order(created_at: :desc).first(20)
-      not_approved if params[:not_approved]
+      @video_posts = VideoPost.all.where(is_approved: true)
+      search(params[:search][:tags]) if params[:search] && params[:search][:tags] != ''
+      @video_posts = @video_posts.order(created_at: :desc).first(20)
+    end
+
+    def show
+      @video_posts = VideoPost.all.where(is_approved: false)
+      search(params[:search][:tags]) if params[:search] && params[:search][:tags] != ''
+      @video_posts = @video_posts.order(created_at: :desc).first(20)
     end
 
     private
 
-    def not_approved
-      @video_posts = VideoPost.all.where(is_approved: false).order(created_at: :desc).first(20)
+    def search(tags)
+      tags.split(',').map do |name|
+        @video_posts = @video_posts.tagged_with(name)
+      end
     end
   end
 end

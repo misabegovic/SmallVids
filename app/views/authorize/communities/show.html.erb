@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="row">
+		<div class="col-3">
+			<%= form_for :search, url: community_path('not_approved'), method: :get do |f|%>
+				<%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
+				<small>Seperate each tag with a comma</small>
+			<%end%>
+			<br>
+		</div>
+		<div class="col">
+			<%= link_to 'Approved Videos', communities_path, method: :get, class: "btn btn-secondary"%>
+			<%= link_to 'Not Approved Videos', community_path('not_approved'), method: :get, class: "btn btn-secondary"%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<%= render @video_posts%>
+		</div>
+	</div>
+</div>

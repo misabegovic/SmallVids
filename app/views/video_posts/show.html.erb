@@ -17,6 +17,9 @@
 			
 			<%if @video_post.is_approved == false%>
 				<br>
+				<%if @video_post.user == current_user%>
+					<%= link_to 'Delete', post_video_path(@video_post), method: :delete, data: { confirm: 'Sigurno želiš obrisati ovaj post?' }, class: "btn btn-primary" %>
+				<%end%>
 				<p style="color: red;">Not approved by admin !</p>
 			<%end%>
 

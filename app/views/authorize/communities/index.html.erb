@@ -1,43 +1,20 @@
 <div class="container">
 	<div class="row">
 		<div class="col-3">
-			<%= form_for :search, url: pages_path, method: :get do |f|%>
+			<%= form_for :search, url: communities_path, method: :get do |f|%>
 				<%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
 				<small>Seperate each tag with a comma</small>
 			<%end%>
 			<br>
 		</div>
-		<div class="col-2">
-			<%= form_for :random, url: pages_path, method: :get do |f|%>
-				<%= f.hidden_field :jebi_se%>
-				<%= f.submit 'Random', class: "btn btn-primary"%>
-			<%end%>
-		</div>
-		<div class="col-2">
-			<p>Popular tags:</p>
-		</div>
 		<div class="col">
-			<% @most_used_tags.each do |tag|%>
-				<%= link_to tag.name, tag_path(tag.name), class: "btn btn-secondary"%>
-			<%end%>
+			<%= link_to 'Approved Videos', communities_path, method: :get, class: "btn btn-secondary"%>
+			<%= link_to 'Not Approved Videos', community_path('not_approved'), method: :get, class: "btn btn-secondary"%>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col">
 			<%= render @video_posts%>
-		</div>
-		<div class="col-3">
-			<br>
-			<%= form_for :approved, url: communities_path, method: :get do |f|%>
-				<%= f.hidden_field :jebi_se%>
-				<%= f.submit 'Show Approved Videos', class: "btn btn-secondary"%>
-			<%end%>
-			
-			<br>
-			<%= form_for :not_approved, url: communities_path, method: :get do |f|%>
-				<%= f.hidden_field :jebi_se%>
-				<%= f.submit 'Show Not Yet Approved Videos', class: "btn btn-secondary"%>
-			<%end%>
 		</div>
 	</div>
 </div>
