@@ -9,18 +9,20 @@
 		</div>
 		<div class="col-2">
 			<%= form_for :random, url: pages_path, method: :get do |f|%>
-				<%= f.hidden_field :jebi_se%>
+				<%= f.hidden_field :find%>
 				<%= f.submit 'Random', class: "btn btn-primary"%>
 			<%end%>
 		</div>
-		<div class="col-2">
-			<p>Popular tags:</p>
-		</div>
-		<div class="col">
-			<% @most_used_tags.each do |tag|%>
-				<%= link_to tag.name, tag_path(tag.name), class: "btn btn-secondary"%>
-			<%end%>
-		</div>
+		<%if @most_used_tags.empty? == false %>
+			<div class="col-2">
+				<p>Popular tags:</p>
+			</div>
+			<div class="col">
+				<% @most_used_tags.each do |tag|%>
+					<%= link_to tag.name, tag_path(tag.name), class: "btn btn-secondary"%>
+				<%end%>
+			</div>
+		<%end%>
 	</div>
 	<div class="row">
 		<%if @video_posts.empty? %>

@@ -1,5 +1,6 @@
 class VideoPostsController < ApplicationController
   def show
+    @upvote = current_user.upvotes.where(video_post_id: params[:id]).first
     @video_post = VideoPost.find(params[:id])
     @video_comment = VideoComment.new
   end

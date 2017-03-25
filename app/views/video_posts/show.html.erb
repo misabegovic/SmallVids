@@ -28,6 +28,7 @@
 				<%= link_to 'Delete', post_video_path(@video_post), method: :delete, data: { confirm: 'Sigurno želiš obrisati ovaj post?' }, class: "btn btn-primary" %>
 			<%end%>
 
+
 			<br>
 			<br>
 			<div class="row">
@@ -37,6 +38,7 @@
 			</div>
 
 			<% if session[:user_id].present? %>
+				<br>
 				<% if (current_user.is_admin || @video_post.user == current_user) && @video_post.is_approved == false%>
 					<%= link_to "Edit", edit_post_video_path(@video_post.id), data: { confirm: 'Jeste li sigurni da želite editovati post?' }, class: "btn btn-secondary" %>
 				<%end%>
@@ -57,33 +59,25 @@
 				<br>
 				<%= video_tag @video_post.uploaded_video_url, :size => "500x350", :controls => true %>
 			</div>
+
+
+			<div class="row">
+				<div class="col-2">
+					<%if @upvote.nil? && session[:user_id].present? %>
+						<%= link_to 'Upvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
+					<%else%>
+						<%= link_to 'Downvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
+					<%end%>
+				</div>
+				<div class="col-2">
+					<p>Upvotes: <%= @video_post.upvotes.length%></p>
+				</div>
+			</div>
+			<br>
 			<div class="row">
 				<p>Copy embed source:</p>
 				<textarea class="form-control" rows="2" style="resize: none;"><iframe width="560" height="315" src="<%= @video_post.uploaded_video_url%>" frameborder="0" allowfullscreen></iframe>
 				</textarea>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col">
-					<%= form_for @video_post, method: :patch do |f|%>
-						<%= f.submit 'Meh', class: "btn btn-primary" %>
-					<%end%>
-				</div>
-				<div class="col">
-					<%= form_for @video_post, method: :patch do |f|%>
-						<%= f.submit "It's Ok", class: "btn btn-primary" %>
-					<%end%>
-				</div>
-				<div class="col">
-					<%= form_for @video_post, method: :patch do |f|%>
-						<%= f.submit 'I like it', class: "btn btn-primary" %>
-					<%end%>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col"><p><%= @video_post.is_meh%>x 'meh'd</p></div>
-				<div class="col"><p><%= @video_post.is_ok%>x 'ok'd</p></div>
-				<div class="col"><p><%= @video_post.i_like_it%>x 'like'd</p></div>
 			</div>
 
 			<br>

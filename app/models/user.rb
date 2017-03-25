@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :video_posts
   has_many :video_comments, dependent: :destroy
+  has_many :upvotes
 
   mount_uploader :profile_photo, ProfilePhotoUploader
 end

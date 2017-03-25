@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :approves
     resources :profiles
     resources :communities
+    resources :upvotes
   end
 end
