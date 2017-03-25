@@ -18,4 +18,3 @@
 //= require bootstrap-sprockets
 //= require social-share-button
 //= require medium-editor
-//= require tag-it
