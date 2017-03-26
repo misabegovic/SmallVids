@@ -74,9 +74,6 @@ ActiveRecord::Schema.define(version: 20180320181909) do
   create_table "video_posts", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "is_approved",    default: false
-    t.integer  "is_meh",         default: 0
-    t.integer  "is_ok",          default: 0
-    t.integer  "i_like_it",      default: 0
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "uploaded_video"

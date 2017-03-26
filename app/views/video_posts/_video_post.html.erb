@@ -2,11 +2,6 @@
 	<%= video_tag video_post.uploaded_video_url, :size => "320x240", :controls => true %>
 	<br>
 	<div class="row">
-		<div class="col"><p><%= video_post.is_meh%> x 'meh'd</p></div>
-		<div class="col"><p><%= video_post.is_ok%> x 'ok'd</p></div>
-		<div class="col"><p><%= video_post.i_like_it%> x 'like'd</p></div>
-	</div>
-	<div class="row">
 		<div class="col">
 			<p>
 				<%video_post.tag_list.each do |tag|%>

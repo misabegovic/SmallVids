@@ -1,6 +1,6 @@
 class VideoPostsController < ApplicationController
   def show
-    @upvote = current_user.upvotes.where(video_post_id: params[:id]).first
+    upvote if session[:id].present?
     @video_post = VideoPost.find(params[:id])
     @video_comment = VideoComment.new
   end
@@ -16,15 +16,7 @@ class VideoPostsController < ApplicationController
 
   private
 
-  def increase_meh
-    @video_post.is_meh = @video_post.is_meh + 1
-  end
-
-  def increase_ok
-    @video_post.is_ok = @video_post.is_ok + 1   
-  end
-
-  def increase_like
-    @video_post.i_like_it = @video_post.i_like_it + 1
+  def upvote
+    @upvote = current_user.upvotes.where(video_post_id: params[:id]).first
   end
 end

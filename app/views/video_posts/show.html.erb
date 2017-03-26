@@ -54,13 +54,15 @@
 
 
 			<div class="row">
-				<div class="col-2">
-					<%if @upvote.nil? && session[:user_id].present? %>
-						<%= link_to 'Upvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
-					<%else%>
-						<%= link_to 'Downvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
-					<%end%>
-				</div>
+				<% if @video_post.user != current_user && session[:user_id].present?%>
+					<div class="col-2">
+						<%if @upvote.nil? %>
+							<%= link_to 'Upvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
+						<%else%>
+							<%= link_to 'Downvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
+						<%end%>
+					</div>
+				<%end%>
 				<div class="col-2">
 					<p>Upvotes: <%= @video_post.upvotes.length%></p>
 				</div>

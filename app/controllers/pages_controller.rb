@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   def random
     random_num = Random.rand(ActsAsTaggableOn::Tag.all.length)
     ActsAsTaggableOn::Tag.all.each do |tag|
-      if random_num < 2
+      if random_num < 1
         return tag.name
       end
       random_num = random_num/2

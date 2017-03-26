@@ -24,14 +24,16 @@ module Authorize
     end
 
     def favorites
-      counter = 1
-      current_user.favorites.each do |f|
-        user = User.find(f.favorite_user_id)
-        if counter = 1
-          @video_posts = user.video_posts.where(is_approved: true)
-          counter+= counter
-        else
-          @video_posts = @video_posts.or(user.video_posts.where(is_approved: true))
+      if current_user.favorites.length > 0
+        counter = 1
+        current_user.favorites.find_each do |f|
+          user = User.find(f.favorite_user_id)
+          if counter = 1
+            @video_posts = user.video_posts.where(is_approved: true)
+            counter+= counter
+          else
+            @video_posts.merge(user.video_posts.where(is_approved: true))
+          end
         end
       end
     end
