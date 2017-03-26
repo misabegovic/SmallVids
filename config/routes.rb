@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     resources :profiles
     resources :communities
     resources :upvotes
+    resources :favorites
   end
 end

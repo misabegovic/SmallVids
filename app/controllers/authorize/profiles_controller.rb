@@ -3,7 +3,9 @@ module Authorize
     before_action :authorize
 
     def show
+      @favorite = current_user.favorites.where(favorite_user_id: params[:id]).first
       @user = User.find(params[:id])
+      @followers = Favorite.all.where(favorite_user_id: @user.id)
       @approved_posts = @user.video_posts.where(is_approved: true)
       @not_approved_num = @user.video_posts.where(is_approved: false).length
     end

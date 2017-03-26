@@ -14,18 +14,15 @@
       	<%= image_tag @video_post.user.profile_photo.thumb.url, class: 'rounded-circle mr-2'%>
       <%end%>
 			<p>Posted by: <%= link_to @video_post.user.username, profile_path(@video_post.user)%></p>
-			
 			<%if @video_post.is_approved == false%>
-				<br>
-				<%if @video_post.user == current_user%>
-					<%= link_to 'Delete', post_video_path(@video_post), method: :delete, data: { confirm: 'Sigurno želiš obrisati ovaj post?' }, class: "btn btn-primary" %>
-				<%end%>
 				<p style="color: red;">Not approved by admin !</p>
 			<%end%>
-
-			<br>
-			<%if session[:user_id].present? && current_user.is_admin %>
-				<%= link_to 'Delete', post_video_path(@video_post), method: :delete, data: { confirm: 'Sigurno želiš obrisati ovaj post?' }, class: "btn btn-primary" %>
+			<%if session[:user_id].present?%>
+				<br>
+				<%if current_user.is_admin || (@video_post.user == current_user && @video_post.is_approved == false)%>
+					<%= link_to 'Delete', post_video_path(@video_post), method: :delete, data: { confirm: 'Are you sure that you want to delete this video?' }, class: "btn btn-primary" %>
+					<%= link_to "Edit", edit_post_video_path(@video_post.id), data: { confirm: 'Are you sure that you want to edit this post?' }, class: "btn btn-secondary" %>
+				<%end%>
 			<%end%>
 
 
@@ -38,11 +35,6 @@
 			</div>
 
 			<% if session[:user_id].present? %>
-				<br>
-				<% if (current_user.is_admin || @video_post.user == current_user) && @video_post.is_approved == false%>
-					<%= link_to "Edit", edit_post_video_path(@video_post.id), data: { confirm: 'Jeste li sigurni da želite editovati post?' }, class: "btn btn-secondary" %>
-				<%end%>
-
 				<br><br>
 				<%= form_for(@video_comment, url: {controller: 'video_comments', action: 'create'}, html: {multipart: true, method: :post}) do |f|%>
 					<%= f.hidden_field :video_post_id, value: @video_post.id%>

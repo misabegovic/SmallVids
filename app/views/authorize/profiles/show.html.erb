@@ -13,12 +13,32 @@
         <%end%>
 
         <p><%= @user.username%> has <%=@approved_posts.length%> approved posts and <%= @not_approved_num%> waiting to be approved</p>
+
+        <%if current_user != @user%>
+          <div class="row">
+            <div class="col">
+              <p>follows <%= @user.favorites.length%></p>
+            </div>
+            <div class="col">
+              <p><%= @followers.length%> followers</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <%if @favorite.nil? && session[:user_id].present? %>
+                <%= link_to 'Follow', favorite_path(@user.id), method: :patch, class: "btn btn-secondary"%>
+              <%else%>
+                <%= link_to 'Unfollow', favorite_path(@user.id), method: :patch, class: "btn btn-secondary"%>
+              <%end%>
+            </div>
+          </div>
+        <%end%>
       </div>
       <div class="col">
         <% if current_user == @user %>
-          <h3>Your posts: </h3>
+          <h3>Your videos: </h3>
         <%else%>
-          <h3><%= @user.first_name%>'s networks: </h3>
+          <h3><%= @user.username%>'s videos: </h3>
         <%end%>
         <%= render @approved_posts%>
       </div>
