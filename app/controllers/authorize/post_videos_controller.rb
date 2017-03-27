@@ -6,12 +6,6 @@ module Authorize
       @video = VideoPost.new
     end
 
-    def show
-      @user = User.find(params[:id])
-      user_approved if params[:approved]
-      user_not_approved if params[:not_approved]
-    end
-
     def create
       @video = VideoPost.new(video_params)
       @video.user = current_user
@@ -54,14 +48,6 @@ module Authorize
 
     def decrease_count(tag)
       tag.taggings_count = tag.taggings_count - 1
-    end
-
-    def user_approved
-      @video_posts = @user.video_posts.where(is_approved: true)
-    end
-
-    def user_not_approved
-      @video_posts = @user.video_posts.where(is_approved: false)
     end
   end
 end

@@ -15,15 +15,15 @@
 
         <div class="row">
           <div class="col">
-            <%= form_for :approved, url: post_video_path(@user), method: :get do |f|%>
-              <%= f.hidden_field :ids %>
-              <%= f.submit "#{@user.username}'s Approved Videos", class: "btn btn-secondary" %>
+            <%= form_for :user, url: profile_path(@user), method: :get do |f|%>
+              <%= f.hidden_field :approved, value: '1' %>
+              <%= f.submit "Show Approved Videos", class: "btn btn-secondary" %>
             <%end%>
           </div>
           <div class="col">
-            <%= form_for :not_approved, url: post_video_path(@user), method: :get do |f|%>
-              <%= f.hidden_field :ids %>
-              <%= f.submit "#{@user.username}'s Not Approved Videos", class: "btn btn-secondary" %>
+            <%= form_for :user, url: profile_path(@user), method: :get do |f|%>
+              <%= f.hidden_field :not_approved, value: '1' %>
+              <%= f.submit "Show Not Approved Videos", class: "btn btn-secondary" %>
             <%end%>
           </div>
         </div>
@@ -59,7 +59,7 @@
         <%else%>
           <h3><%= @user.username%>'s videos: </h3>
         <%end%>
-        <%= render @user.video_posts%>
+        <%= render @video_posts%>
       </div>
     </div>
   </main>

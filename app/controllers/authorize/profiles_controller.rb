@@ -6,6 +6,9 @@ module Authorize
       @favorite = current_user.favorites.where(favorite_user_id: params[:id]).first
       @user = User.find(params[:id])
       @followers = Favorite.all.where(favorite_user_id: @user.id)
+      @video_posts = @user.video_posts
+      user_approved if params[:user] && params[:user][:approved]
+      user_not_approved if params[:user] && params[:user][:not_approved]
     end
 
     def edit
@@ -28,6 +31,14 @@ module Authorize
         :password_confirmation,
         :profile_photo
       )
+    end
+
+    def user_approved
+      @video_posts = @user.video_posts.where(is_approved: true)
+    end
+
+    def user_not_approved
+      @video_posts = @user.video_posts.where(is_approved: false)
     end
   end
 end
