@@ -59,6 +59,11 @@
         <%else%>
           <h3><%= @user.username%>'s videos: </h3>
         <%end%>
+        <%= form_for :search, url: profile_path(@user), method: :get do |f|%>
+          <%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
+          <small>Seperate each tag with a comma</small>
+        <%end%>
+        <br>
         <%= render @video_posts%>
       </div>
     </div>

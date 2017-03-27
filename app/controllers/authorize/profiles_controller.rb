@@ -9,6 +9,7 @@ module Authorize
       @video_posts = @user.video_posts
       user_approved if params[:user] && params[:user][:approved]
       user_not_approved if params[:user] && params[:user][:not_approved]
+      search(params[:search][:tags]) if params[:search] && params[:search][:tags] != ''
       @video_posts = @video_posts.order(created_at: :desc).first(10)
     end
 
@@ -40,6 +41,12 @@ module Authorize
 
     def user_not_approved
       @video_posts = @user.video_posts.where(is_approved: false)
+    end
+
+    def search(tags)
+      tags.split(',').map do |name|
+        @video_posts = @video_posts.tagged_with(name)
+      end
     end
   end
 end
