@@ -9,6 +9,7 @@ module Authorize
       @video_posts = @user.video_posts
       user_approved if params[:user] && params[:user][:approved]
       user_not_approved if params[:user] && params[:user][:not_approved]
+      @video_posts = @video_posts.order(created_at: :desc).first(10)
     end
 
     def edit
