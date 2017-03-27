@@ -12,13 +12,33 @@
           <%= link_to 'Edit Profile',edit_profile_path(@user.id), class: "btn btn-secondary"%>
         <%end%>
 
-        <p><%= @user.username%> has <%=@approved_posts.length%> approved posts and <%= @not_approved_num%> waiting to be approved</p>
+
         <div class="row">
           <div class="col">
-            <p>follows <%= @user.favorites.length%></p>
+            <%= form_for :approved, url: post_video_path(@user), method: :get do |f|%>
+              <%= f.hidden_field :ids %>
+              <%= f.submit "#{@user.username}'s Approved Videos", class: "btn btn-secondary" %>
+            <%end%>
           </div>
           <div class="col">
-            <p><%= @followers.length%> followers</p>
+            <%= form_for :not_approved, url: post_video_path(@user), method: :get do |f|%>
+              <%= f.hidden_field :ids %>
+              <%= f.submit "#{@user.username}'s Not Approved Videos", class: "btn btn-secondary" %>
+            <%end%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= form_for :followers, url: favorite_path(@user), method: :get do |f|%>
+              <%= f.hidden_field :ids %>
+              <%= f.submit "Followers #{@followers.length}", class: "btn btn-secondary" %>
+            <%end%>
+          </div>
+          <div class="col">
+            <%= form_for :following, url: favorite_path(@user), method: :get do |f|%>
+              <%= f.hidden_field :ids %>
+              <%= f.submit "Following #{@user.favorites.length}", class: "btn btn-secondary" %>
+            <%end%>
           </div>
         </div>
         <%if current_user != @user%>
@@ -39,7 +59,7 @@
         <%else%>
           <h3><%= @user.username%>'s videos: </h3>
         <%end%>
-        <%= render @approved_posts%>
+        <%= render @user.video_posts%>
       </div>
     </div>
   </main>

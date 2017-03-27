@@ -9,6 +9,11 @@ module Authorize
       redirect_to VideoPost.find(params[:id])
     end
 
+    def show
+      @video_post = VideoPost.find(params[:id])
+      @upvotes = Upvote.where(video_post_id: @video_post.id)
+    end
+
     private
 
     def create_upvote(video_id)

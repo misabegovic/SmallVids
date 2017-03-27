@@ -64,8 +64,12 @@
 					</div>
 				<%end%>
 				<div class="col-2">
-					<p>Upvotes: <%= @video_post.upvotes.length%></p>
-				</div>
+          <% if session[:user_id].present? %>
+            <%= link_to "Upvotes: #{@video_post.upvotes.length}", upvote_path(@video_post.id)%>
+          <%else%>
+					 <p>Upvotes: <%= @video_post.upvotes.length%></p>
+				  <%end%>
+        </div>
 			</div>
 			<br>
 			<div class="row">
