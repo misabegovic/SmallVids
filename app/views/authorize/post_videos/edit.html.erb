@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col">
 				<p>Tags: </p>
-				<%= f.text_field :tag_list, placeholder: 'Tag it', class: "form-control" %>
+				<%= f.text_field :tag_list, value: (@video.tag_list.collect{|t| t+","}), placeholder: 'Tag it', class: "form-control" %>
 				<small>Separate each tag with a comma</small>
 			</div>
 		</div>

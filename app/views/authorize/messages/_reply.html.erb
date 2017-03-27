@@ -1,0 +1,11 @@
+<%= form_for(@reply, url: messages_path, method: :post) do |f| %>
+	<%= f.hidden_field :to_id, value: @message.from_id, class: "field", remote: true%>
+	<%= f.hidden_field :subject, value: "RE: #{@message.subject}", class: "field", remote: true%>
+	<%= f.hidden_field :tag_list, value: (@message.tag_list.collect{|t| t+","}), class: "field", remote: true%>
+	<%= f.hidden_field :parent_id, value: @message.id, class: "field", remote: true%>
+	<%= f.text_area :content, class: "field", remote: true, placeholder: "Reply" %>
+	<div class="actions">
+		<br/>
+		<%= f.submit "Reply", class: "btn btn-primary btn-sm float-xs-left", remote: true%>
+	<%end%>
+</div>

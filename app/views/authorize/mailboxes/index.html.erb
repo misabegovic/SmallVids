@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="row">
+		<div class="col-2 sidebar">
+			<div id="new_category">
+					<%= render partial: 'authorize/categories/new', object: @category %>
+			</div>
+			<nav id="categories" class="nav nav-pills nav-stacked">
+			<%= render partial: 'authorize/categories/index'%>
+			</nav>
+		</div>
+
+		<div id="display" class="col-7 push-3">
+			<br/>
+			<h3 class="text-xs-center align-middle">No message has been selected </h3>
+		</div>
+		<div id="messages" class="col-3 pull-7">
+			<div id="render-messages">
+				<%= render partial: 'authorize/messages/index' %>
+			</div>
+		</div>
+	</div>
+</div>

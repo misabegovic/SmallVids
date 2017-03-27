@@ -8,6 +8,15 @@ class User < ApplicationRecord
   has_many :video_comments, dependent: :destroy
   has_many :upvotes
   has_many :favorites, dependent: :destroy
+  has_many :categories
+  has_many :messages, through: :categories
+  has_many :folders
 
   mount_uploader :profile_photo, ProfilePhotoUploader
+
+  after_create do
+    Category.create(name: "Inbox", user_id: id)
+    Category.create(name: "Sent", user_id: id)
+    Category.create(name: "Trash", user_id: id)
+  end
 end

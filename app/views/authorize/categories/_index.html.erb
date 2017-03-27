@@ -1,0 +1,7 @@
+<div class="container">
+	<% @categories.each do |c| %>
+		<div class="row">
+			<%= link_to "#{c.name}", messages_path(category_id: c.id), remote: true %>
+		</div>
+	<%end%>
+</div>

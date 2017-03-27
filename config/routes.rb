@@ -11,5 +11,8 @@ Rails.application.routes.draw do
     resources :communities
     resources :upvotes
     resources :favorites
+    resources :mailboxes, only: [:index]
+    resources :categories
+    resources :messages
   end
 end
