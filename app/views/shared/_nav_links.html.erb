@@ -6,7 +6,7 @@
 	<%end%>
 	<%= link_to 'Post a video', post_videos_path, method: 'get', class: "btn btn-primary" %>
 	<%= link_to 'My Profile', profile_path(session[:user_id]), method: 'get', class: "btn btn-secondary" %>
-	<%= link_to 'Mailbox', mailboxes_path(session[:user_id]), method: 'get', class: "btn btn-secondary" %>
+	<%= link_to 'Mailbox', messages_path(session[:user_id]), method: 'get', class: "btn btn-secondary" %>
 	<%= link_to 'Logout', session_path(session[:user_id]), method: 'delete', class: "btn btn-secondary" %>
 <%else%>
 	<%= link_to 'Login', new_session_path, method: 'get', class: "btn btn-secondary mr-sm-2" %>

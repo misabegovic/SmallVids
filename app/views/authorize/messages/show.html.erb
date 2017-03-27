@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="row">
+		<div class="col-2 sidebar">
+			<%= render @categories%>
+		</div>
+		<div class="col-3">
+			<div class="row">
+				<%= link_to "New Message", new_message_path, method: :get, class: "btn btn-primary btn-sm float-xs-right" %>
+			</div>
+			<div class="list-group row">
+				<%= render @messages.order(created_at: :desc) %>
+			</div>
+		</div>
+		<div class="col-7">
+				<div class="row">
+					<%= link_to "Delete Message", @message, remote: true, class: "btn btn-secondary btn-sm float-xs-right", method: :delete %>
+				</div>
+				<div class="row">
+					<h2><%= @message.subject %></h2>
+				</div>
+				<div class="row">
+					<h6 style="float:left;">From: <%= @message.name_from %></h6>
+					<h6 style="float:left; margin-left:10px;">To: <%= @message.name_to %></h6>
+					<h6 style="float:right; margin-left:10px;"><%= @message.created_at.strftime("Sent on: %d %b. %Y") %></h6>
+				</div>
+				<div class="row">
+					<h6>Tags: 
+						<% if @message.tag_list.empty? == false %>
+							<% @message.tag_list.each do |tag| %>
+								<%= link_to tag, tag_path(tag), class: "btn btn-secondary"%>
+							<%end%>
+						<%end%>
+				  </h6>
+				</div>
+				<div class="row">
+					<br/>
+					<%= simple_format @message.content, sanitize: false %>
+				</div>
+				<div class="row">
+					<%= render partial: 'reply' %>
+				</div>
+			</div>
+		</div>
+</div>
+
+

@@ -1,0 +1,4 @@
+<%= link_to message_path(message), method: :get, class: "list-group-item list-group-item-action" do %>
+	<h6><%= message.subject %></h6>
+	<p class="no-margin"><%= truncate(message.content, length: 80) %></p>
+<%end%>

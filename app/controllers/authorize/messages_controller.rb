@@ -3,6 +3,7 @@ module Authorize
     before_action :authorize
 
     def index
+      @categories = current_user.categories
       if params[:category_id].present?
         @messages = current_user.categories.find(params[:category_id]).messages
       else
@@ -13,17 +14,29 @@ module Authorize
     def show
       @message = Message.find(params[:id])
       @reply = Message.new
+      @categories = current_user.categories
+      if params[:category_id].present?
+        @messages = current_user.categories.find(params[:category_id]).messages
+      else
+        @messages = current_user.categories.first.messages
+      end   
     end
 
     def new
       @message = Message.new
+      @categories = current_user.categories
+      if params[:category_id].present?
+        @messages = current_user.categories.find(params[:category_id]).messages
+      else
+        @messages = current_user.categories.first.messages
+      end   
     end
 
     def create
       @message = Message.new(message_params)
       @message.from_id = current_user.id
-      user_to(params[:message][:to_id]) if params[:message][:parent_id] == ''
-      redirect_to mailboxes_path if @message.save
+      user_to(params[:message][:to_id]) if params[:message][:parent_id].nil?
+      redirect_to messages_path if @message.save
     end
 
     def destroy
@@ -34,7 +47,7 @@ module Authorize
         @message.folders.find_by(user: current_user)
                 .update(category: current_user.categories.find_by(name: "Trash"))
       end
-      redirect_to mailboxes_path
+      redirect_to messages_path
     end
 
     def move_to

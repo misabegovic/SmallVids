@@ -1,0 +1,19 @@
+<div class="container">
+	<div class="row">
+		<div class="col-2 sidebar">
+			<%= render @categories%>
+		</div>
+		<div class="col-3">
+			<div class="row">
+				<%= link_to "New Message", new_message_path, method: :get, class: "btn btn-primary btn-sm float-xs-right" %>
+			</div>
+			<div class="list-group row">
+				<%= render @messages.order(created_at: :desc) %>
+			</div>
+		</div>
+		<div class="col-7">
+			<br/>
+			<h3 class="text-xs-center align-middle">No message has been selected </h3>
+		</div>
+	</div>
+</div>
