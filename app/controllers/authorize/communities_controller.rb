@@ -30,11 +30,13 @@ module Authorize
           user = User.find(f.favorite_user_id)
           if counter = 1
             @video_posts = user.video_posts.where(is_approved: true)
-            counter+= counter
+            counter+= 1
           else
             @video_posts.merge(user.video_posts.where(is_approved: true))
           end
         end
+      else
+        @video_posts = VideoPost.none
       end
     end
   end

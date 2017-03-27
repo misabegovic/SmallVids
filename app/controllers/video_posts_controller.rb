@@ -7,9 +7,6 @@ class VideoPostsController < ApplicationController
 
   def update
     @video_post = VideoPost.find(params[:id])
-    increase_meh if params[:commit] == 'Meh'
-    increase_ok if params[:commit] == "It's Ok"
-    increase_like if params[:commit] == 'I like it'
     @video_post.save
     redirect_to @video_post
   end
