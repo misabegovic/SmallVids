@@ -8,11 +8,10 @@
 			<br>
 		</div>
 		<div class="col">
-			<%= link_to 'Approved Videos', communities_path, method: :get, class: "btn btn-secondary"%>
-			<%= link_to 'Not Approved Videos', community_path('not_approved'), method: :get, class: "btn btn-secondary"%>
+			<%= link_to 'Back To Approved Videos', communities_path, method: :get, class: "btn btn-secondary"%>
 		</div>
 		<div class="col">
-			<%= form_for :favorites, url: communities_path, method: :get do |f|%>
+			<%= form_for :favorites, url: community_path('not_approved_favorites'), method: :get do |f|%>
 				<%= f.hidden_field :find%>
 				<%= f.submit 'Videos of favorites', class: "btn btn-secondary"%>
 			<%end%>

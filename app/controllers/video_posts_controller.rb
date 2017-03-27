@@ -14,6 +14,6 @@ class VideoPostsController < ApplicationController
   private
 
   def upvote
-    @upvote = current_user.upvotes.where(video_post_id: params[:id]).first
+    @upvote = current_user.upvotes.find_by(video_post_id: params[:id])
   end
 end

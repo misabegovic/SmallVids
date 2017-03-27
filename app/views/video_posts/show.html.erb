@@ -57,7 +57,7 @@
 				<% if @video_post.user != current_user && session[:user_id].present?%>
 					<div class="col-2">
 						<%if @upvote.nil? %>
-							<%= link_to 'Upvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
+              <%= link_to 'Upvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
 						<%else%>
 							<%= link_to 'Downvote', upvote_path(@video_post.id), method: :patch, class: "btn btn-secondary"%>
 						<%end%>
