@@ -15,4 +15,11 @@ class ApplicationController < ActionController::Base
   def authorize_admin
     redirect_to new_session_path unless current_user && current_user.is_admin
   end
+
+  def search(tags, target)
+    tags.split(',').map do |name|
+      target = target.tagged_with(name)
+    end
+    return target
+  end
 end

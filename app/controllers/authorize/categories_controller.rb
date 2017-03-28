@@ -1,19 +1,7 @@
 module Authorize
   class CategoriesController < ApplicationController
     before_action :authorize
-
-    def index
-      @categories = current_user.categories
-    end
-
-    def show
-      @category = current_user.categories.find(params[:id])
-    end
-
-    def new
-      @category = Category.new
-    end
-
+    
     def create
       @category = Category.new(category_params)
       @category.user_id = current_user.id

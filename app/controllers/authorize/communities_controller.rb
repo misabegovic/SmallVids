@@ -5,24 +5,20 @@ module Authorize
     def index
       @video_posts = VideoPost.all.where(is_approved: true)
       favorites if params[:favorites]
-      search(params[:search][:tags]) if params[:search] && params[:search][:tags] != ''
+      condition_search = params[:search] && params[:search][:tags] != ''
+      @video_posts = search(params[:search][:tags], @video_posts) if condition_search
       @video_posts = @video_posts.order(created_at: :desc).first(20)
     end
 
     def show
       @video_posts = VideoPost.all.where(is_approved: false)
       favorites_unapproved if params[:favorites]
-      search(params[:search][:tags]) if params[:search] && params[:search][:tags] != ''
+      condition_search = params[:search] && params[:search][:tags] != ''
+      @video_posts = search(params[:search][:tags], @video_posts) if condition_search
       @video_posts = @video_posts.order(created_at: :desc).first(20)
     end
 
     private
-
-    def search(tags)
-      tags.split(',').map do |name|
-        @video_posts = @video_posts.tagged_with(name)
-      end
-    end
 
     def favorites
       if current_user.favorites.length > 0

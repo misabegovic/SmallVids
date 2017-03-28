@@ -29,7 +29,7 @@ module Authorize
       video.uploaded_video.remove!
       destroy_tags(video.tag_list)
       video.destroy
-      redirect_to root_path
+      redirect_to approves_path
     end
 
     private

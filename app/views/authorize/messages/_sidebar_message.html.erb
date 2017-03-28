@@ -1,0 +1,6 @@
+<div class="col-2 sidebar">
+	<div class="row">
+		<%= link_to "New Message", new_message_path, method: :get, class: "btn btn-primary btn-sm float-xs-right" %>
+	</div>
+	<%= render current_user.categories%>
+</div>

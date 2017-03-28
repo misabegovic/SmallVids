@@ -17,6 +17,5 @@ class User < ApplicationRecord
   after_create do
     Category.create(name: "Inbox", user_id: id)
     Category.create(name: "Sent", user_id: id)
-    Category.create(name: "Trash", user_id: id)
   end
 end
