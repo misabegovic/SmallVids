@@ -10,12 +10,7 @@ class PagesController < ApplicationController
   private
 
   def random
-    random_num = Random.rand(ActsAsTaggableOn::Tag.all.length*3)
-    ActsAsTaggableOn::Tag.all.each do |tag|
-      if random_num < 1
-        return tag.name
-      end
-      random_num = random_num/2
-    end
+    #return ActsAsTaggableOn::Tag.order('RANDOM()').first.name
+    return ActsAsTaggableOn::Tag.where('RANDOM() >= 0.2').first.name
   end
 end
