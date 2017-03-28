@@ -1,5 +1,4 @@
 class Message < ApplicationRecord
-  acts_as_taggable
   belongs_to :parent, foreign_key: :parent_id, class_name: 'Message', optional: true
   belongs_to :from, foreign_key: :from_id, class_name: 'User'
   belongs_to :to, foreign_key: :to_id, class_name: 'User'

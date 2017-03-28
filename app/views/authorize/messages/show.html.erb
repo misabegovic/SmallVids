@@ -15,15 +15,6 @@
 					<h6 style="float:right; margin-left:10px;"><%= @message.created_at.strftime("Sent on: %d %b. %Y") %></h6>
 				</div>
 				<div class="row">
-					<h6>Tags: 
-						<% if @message.tag_list.empty? == false %>
-							<% @message.tag_list.each do |tag| %>
-								<%= link_to tag, tag_path(tag), class: "btn btn-secondary"%>
-							<%end%>
-						<%end%>
-				  </h6>
-				</div>
-				<div class="row">
 					<br/>
 					<%= simple_format @message.content, sanitize: false %>
 				</div>

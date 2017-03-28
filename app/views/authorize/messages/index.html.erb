@@ -2,11 +2,6 @@
 	<div class="row">
 		<%= render 'authorize/messages/sidebar_message'%>
 		<div class="col-5 offset-md-1">
-			<%= form_for :search, url: messages_path, method: :get do |f|%>
-				<%= f.hidden_field :category_id, value: @category_id%>
-				<%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
-				<small>Seperate each tag with a comma</small>
-			<%end%>
 			<div class="list-group row">
 				<%= render @messages.order(created_at: :desc) %>
 			</div>
