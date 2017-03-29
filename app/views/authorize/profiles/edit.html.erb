@@ -31,5 +31,10 @@
         </div>
       </div>
     <%end%>
+    <div class="row">
+      <div class="col">
+        <%= link_to 'Delete Your Profile ?', profile_path(@user), method: :delete, data: { confirm: 'Are you sure that you want to delete your profile?' }, class: "btn btn-primary" %>
+      </div>
+    </div>
   </main>
 </div>

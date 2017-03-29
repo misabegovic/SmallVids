@@ -10,10 +10,12 @@
 			</div>
 
 			<br>
-			<%= link_to profile_path(@video_post.user) do %>
-      	<%= image_tag @video_post.user.profile_photo.thumb.url, class: 'rounded-circle mr-2'%>
-      <%end%>
-			<p>Posted by: <%= link_to @video_post.user.username, profile_path(@video_post.user)%></p>
+			<%if @video_post.user.nil? == false%>
+				<%= link_to profile_path(@video_post.user) do %>
+      		<%= image_tag @video_post.user.profile_photo.thumb.url, class: 'rounded-circle mr-2'%>
+      	<%end%>
+				<p>Posted by: <%= link_to @video_post.user.username, profile_path(@video_post.user)%></p>
+			<%end%>
 			<%if @video_post.is_approved == false%>
 				<p style="color: red;">Not approved by admin !</p>
 			<%end%>

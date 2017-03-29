@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   private
 
   def random
-    #return ActsAsTaggableOn::Tag.order('RANDOM()').first.name
-    return ActsAsTaggableOn::Tag.where('RANDOM() >= 0.2').first.name
+    return ActsAsTaggableOn::Tag.order('RANDOM()').first.name
+    #return ActsAsTaggableOn::Tag.where('RANDOM() >= 0.2').first.name
   end
 end

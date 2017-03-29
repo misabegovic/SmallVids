@@ -9,7 +9,7 @@
         <h4><%= @user.username%></h4>
         <br>
         <% if current_user == @user %>
-          <%= link_to 'Edit Profile',edit_profile_path(@user.id), class: "btn btn-secondary"%>
+          <%= link_to 'Edit Profile',edit_profile_path(@user.id), class: "btn btn-secondary", data: { confirm: 'Are you sure that you want to edit your profile?' }%>
         <%end%>
 
 

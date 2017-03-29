@@ -24,6 +24,13 @@ module Authorize
       redirect_to profile_path(@user)
     end
 
+    def destroy
+      @user = User.find(params[:id])
+      @user.delete
+      session[:user_id] = nil
+      redirect_to new_session_path
+    end
+
     private
 
     def user_params

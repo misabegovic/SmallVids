@@ -10,7 +10,7 @@
 		<div class="col-2">
 			<%= form_for :random, url: pages_path, method: :get do |f|%>
 				<%= f.hidden_field :find%>
-				<%= f.submit 'Random', class: "btn btn-primary"%>
+				<%= f.submit 'Random Tag', class: "btn btn-primary"%>
 			<%end%>
 		</div>
 		<%if @most_used_tags.empty? == false %>
