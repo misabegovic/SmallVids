@@ -3,14 +3,20 @@ module Authorize
     before_action :authorize
 
     def update
-      favorite = current_user.favorites.where(favorite_user_id: params[:id]).first
+      favorite = current_user.favorites
+                             .find_by(favorite_user_id: params[:id])
+
+      #conditionals
       create_favorite(params[:id]) if favorite.nil?
       favorite.delete if favorite.present?
+
       redirect_to profile_path(User.find(params[:id]))
     end
 
     def show
       @user = User.find(params[:id])
+
+      #conditionals
       get_favorites if params[:following]
       get_followers if params[:followers]
     end
@@ -18,7 +24,10 @@ module Authorize
     private
 
     def create_favorite(favorite_user)
-      Favorite.create(user: current_user, favorite_user_id: favorite_user)
+      Favorite.create(
+        user: current_user,
+        favorite_user_id: favorite_user
+      )
     end
 
     def get_favorites

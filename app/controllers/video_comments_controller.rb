@@ -3,7 +3,8 @@ class VideoCommentsController < ApplicationController
     comment = VideoComment.new(video_comment_params)
     comment.user = current_user
     video = comment.video_post
-    redirect_to video if comment.save
+    comment.save
+    redirect_to video
 	end
   
 	def destroy
@@ -16,6 +17,10 @@ class VideoCommentsController < ApplicationController
   private
 
   def video_comment_params
-    params.require(:video_comment).permit(:content, :video_post_id)
+    params.require(:video_comment)
+          .permit(
+            :content,
+            :video_post_id
+          )
   end
 end

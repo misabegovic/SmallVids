@@ -4,8 +4,11 @@ module Authorize
 
     def update
       upvote = current_user.upvotes.where(video_post_id: params[:id]).first
+
+      #conditionals
       create_upvote(params[:id]) if upvote.nil?
       upvote.delete if upvote.present?
+      
       redirect_to VideoPost.find(params[:id])
     end
 

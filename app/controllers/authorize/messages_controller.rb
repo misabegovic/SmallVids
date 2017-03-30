@@ -3,7 +3,12 @@ module Authorize
     before_action :authorize
 
     def index
-      @messages = current_user.categories.first.messages
+      @messages = current_user.categories
+                              .first
+                              .messages
+                              .order(created_at: :desc)
+
+      #conditionals
       change_messages if params[:category_id]
     end
 
@@ -17,13 +22,20 @@ module Authorize
     def create
       @message = Message.new(message_params)
       @message.from_id = current_user.id
-      user_to(params[:message][:to_id]) if params[:message][:parent_id].nil?
+
+      #conditionals
+      condition = params[:message][:parent_id].nil?
+      user_to(params[:message][:to_id]) if condition
+
       redirect_to messages_path
     end
 
     def destroy
       @message = Message.find(params[:id])
-      @message.folders.find_by(user: current_user).delete
+      @message.folders
+              .find_by(user: current_user)
+              .delete
+
       redirect_to messages_path
     end
 
@@ -42,7 +54,7 @@ module Authorize
     def user_to(usernames)
       usernames.split(',').map do |username|
         user = User.find_by(username: username)
-        save_message(user.id) if user.nil? == false
+        save_message(user.id) if !user.nil?
       end
     end
 
@@ -53,7 +65,10 @@ module Authorize
     end
 
     def change_messages
-      @messages = current_user.categories.find(params[:category_id]).messages
+      @messages = current_user.categories
+                              .find(params[:category_id])
+                              .messages
+                              .order(created_at: :desc)
     end
   end
 end

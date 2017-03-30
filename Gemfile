@@ -6,6 +6,7 @@ end
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'carrierwave', '~> 1.0'
 #gem 'capybara'
 gem 'coffee-rails', '~> 4.2'
 gem 'file_validators'
@@ -38,4 +39,3 @@ gem 'sass-rails', '~> 5.0'
 #gem 'simplecov', require: false, group: :test
 gem 'social-share-button'
 gem 'sqlite3'
-gem 'carrierwave', '~> 1.0'

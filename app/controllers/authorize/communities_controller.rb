@@ -4,8 +4,10 @@ module Authorize
 
     def index
       @video_posts = VideoPost.all.where(is_approved: true)
+
+      #conditionals
       favorites if params[:favorites]
-      condition_search = params[:search] && params[:search][:tags] != ''
+      condition_search = params[:search] && params[:search][:tags]
       @video_posts = search(params[:search][:tags], @video_posts) if condition_search
       @video_posts = @video_posts.order(created_at: :desc)
                                  .first(20)
@@ -13,8 +15,10 @@ module Authorize
 
     def show
       @video_posts = VideoPost.all.where(is_approved: false)
+
+      #conditionals
       favorites_unapproved if params[:favorites]
-      condition_search = params[:search] && params[:search][:tags] != ''
+      condition_search = params[:search] && params[:search][:tags]
       @video_posts = search(params[:search][:tags], @video_posts) if condition_search
       @video_posts = @video_posts.order(created_at: :desc)
                                  .first(20)
@@ -28,10 +32,14 @@ module Authorize
         current_user.favorites.find_each do |f|
           user = User.find(f.favorite_user_id)
           if counter = 1
-            @video_posts = user.video_posts.where(is_approved: true)
+            @video_posts = user.video_posts
+                               .where(is_approved: true)
             counter+= 1
           else
-            @video_posts.merge(user.video_posts.where(is_approved: true))
+            @video_posts.merge(
+              user.video_posts
+                  .where(is_approved: true)
+            )
           end
         end
       else
@@ -45,10 +53,14 @@ module Authorize
         current_user.favorites.find_each do |f|
           user = User.find(f.favorite_user_id)
           if counter = 1
-            @video_posts = user.video_posts.where(is_approved: false)
+            @video_posts = user.video_posts
+                               .where(is_approved: false)
             counter+= 1
           else
-            @video_posts.merge(user.video_posts.where(is_approved: false))
+            @video_posts.merge(
+              user.video_posts
+                  .where(is_approved: false)
+            )
           end
         end
       else

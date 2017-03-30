@@ -8,10 +8,13 @@ module Authorize
 
     def create
       @video = VideoPost.new(video_params)
-      resize_tags if @video.tag_list
       @video.user = current_user
+
+      #conditionals
+      resize_tags if @video.tag_list
       @video.is_approved = true if current_user.is_admin
       redirect_to @video if @video.save
+
       render :index unless @video.save
     end
 
@@ -22,21 +25,28 @@ module Authorize
     def update
       @video = VideoPost.find(params[:id])
       @video.update(video_params)
+
       redirect_to @video
     end
 
     def destroy
       video = VideoPost.find(params[:id])
+
       video.uploaded_video.remove!
       destroy_tags(video.tag_list)
       video.destroy
+
       redirect_to approves_path
     end
 
     private
 
     def video_params
-      params.require(:video_post).permit(:uploaded_video, :tag_list)
+      params.require(:video_post)
+            .permit(
+              :uploaded_video,
+              :tag_list
+            )
     end
 
     def destroy_tags(tags)
