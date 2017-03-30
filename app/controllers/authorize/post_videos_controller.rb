@@ -8,6 +8,7 @@ module Authorize
 
     def create
       @video = VideoPost.new(video_params)
+      resize_tags if @video.tag_list
       @video.user = current_user
       @video.is_approved = true if current_user.is_admin
       redirect_to @video if @video.save
@@ -48,6 +49,15 @@ module Authorize
 
     def decrease_count(tag)
       tag.taggings_count = tag.taggings_count - 1
+    end
+
+    def resize_tags
+      @video.tag_list = @video.tag_list.first(5)
+      i = 0
+      @video.tag_list.each do |tag|
+        @video.tag_list[i] = tag[0..15]
+        i += 1
+      end
     end
   end
 end

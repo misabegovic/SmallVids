@@ -15,13 +15,13 @@
 
         <div class="row">
           <div class="col">
-            <%= form_for :user, url: profile_path(@user), method: :get do |f|%>
+            <%= form_for :user, url: profile_path(@user), method: :get, remote: true do |f|%>
               <%= f.hidden_field :approved, value: '1' %>
               <%= f.submit "Show Approved Videos", class: "btn btn-secondary" %>
             <%end%>
           </div>
           <div class="col">
-            <%= form_for :user, url: profile_path(@user), method: :get do |f|%>
+            <%= form_for :user, url: profile_path(@user), method: :get, remote: true do |f|%>
               <%= f.hidden_field :not_approved, value: '1' %>
               <%= f.submit "Show Not Approved Videos", class: "btn btn-secondary" %>
             <%end%>
@@ -59,12 +59,14 @@
         <%else%>
           <h3><%= @user.username%>'s videos: </h3>
         <%end%>
-        <%= form_for :search, url: profile_path(@user), method: :get do |f|%>
+        <%= form_for :search, url: profile_path(@user), method: :get, remote: true do |f|%>
           <%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
           <small>Seperate each tag with a comma</small>
         <%end%>
         <br>
-        <%= render @video_posts%>
+        <div id="show_videos">
+          <%= render @video_posts%>
+        </div>
       </div>
     </div>
   </main>

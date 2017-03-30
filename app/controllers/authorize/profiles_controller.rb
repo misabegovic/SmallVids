@@ -7,6 +7,7 @@ module Authorize
       @user = User.find(params[:id])
       @followers = Favorite.all.where(favorite_user_id: @user.id)
       @video_posts = @user.video_posts
+      
       user_approved if params[:user] && params[:user][:approved]
       user_not_approved if params[:user] && params[:user][:not_approved]
       condition_search = params[:search] && params[:search][:tags] != ''

@@ -4,7 +4,9 @@
 			<% if @videos.empty? %>
 				<h4>No videos for approval</h4>
 			<%else%>
-				<%= render @videos%>
+				<div id="show_videos">
+					<%= render @videos%>
+				</div>
 			<%end%>
 		</div>
 	</div>

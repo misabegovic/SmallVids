@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-3">
-			<%= form_for :search, url: communities_path, method: :get do |f|%>
+			<%= form_for :search, url: communities_path, method: :get, remote: true do |f|%>
 				<%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
 				<small>Seperate each tag with a comma</small>
 			<%end%>
@@ -11,14 +11,14 @@
 			<%= link_to 'Show Not Approved Videos', community_path('not_approved'), method: :get, class: "btn btn-secondary"%>
 		</div>
 		<div class="col">
-			<%= form_for :favorites, url: communities_path, method: :get do |f|%>
+			<%= form_for :favorites, url: communities_path, method: :get, remote: true do |f|%>
 				<%= f.hidden_field :find%>
 				<%= f.submit 'Videos of favorites', class: "btn btn-secondary"%>
 			<%end%>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col">
+		<div class="col" id="show_videos">
 			<%= render @video_posts%>
 		</div>
 	</div>

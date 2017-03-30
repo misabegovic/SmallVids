@@ -5,9 +5,10 @@ module Authorize
     def create
       @category = Category.new(category_params)
       @category.user_id = current_user.id
-      if(current_user.categories.find_by(name: @category.name).nil?)
-        @category.save
-      end  
+      condition = current_user.categories
+                              .find_by(name: @category.name)
+                              .nil?
+      @category.save if condition 
     end
 
     private

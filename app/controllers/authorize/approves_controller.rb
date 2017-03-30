@@ -3,7 +3,9 @@ module Authorize
     before_action :authorize_admin
 
     def index
-      @videos = VideoPost.all.where(is_approved: false).order(created_at: :asc).first(10)
+      @videos = VideoPost.all
+                         .where(is_approved: false)
+                         .order(created_at: :asc).first(10)
     end
 
     def update

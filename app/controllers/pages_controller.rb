@@ -4,7 +4,9 @@ class PagesController < ApplicationController
     @most_used_tags = ActsAsTaggableOn::Tag.most_used(10)
     @videos = VideoPost.all
     @videos = search(params[:search][:tags], @videos) if params[:search] && params[:search][:tags]
-    @videos = @videos.where(is_approved: true).order(created_at: :desc).first(20)
+    @videos = @videos.where(is_approved: true)
+                     .order(created_at: :desc)
+                     .first(20)
   end
 
   private

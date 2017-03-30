@@ -1,14 +1,14 @@
 <div class="container">
 	<div class="row">
 		<div class="col-3">
-			<%= form_for :search, url: pages_path, method: :get do |f|%>
+			<%= form_for :search, url: pages_path, method: :get, remote: true do |f|%>
 				<%= f.text_field :tags, class: "form-control", placeholder: 'Search by tags'%>
 				<small>Seperate each tag with a comma</small>
 			<%end%>
 			<br>
 		</div>
 		<div class="col-2">
-			<%= form_for :random, url: pages_path, method: :get do |f|%>
+			<%= form_for :random, url: pages_path, method: :get, remote: true do |f|%>
 				<%= f.hidden_field :find%>
 				<%= f.submit 'Random Tag', class: "btn btn-primary"%>
 			<%end%>
@@ -28,7 +28,9 @@
 		<%if @video_posts.empty? %>
 			<h5>Videos are not yet approved</h5>
 		<%else%>
-			<%= render @video_posts%>
+			<div id="show_videos">
+				<%= render @video_posts%>
+			</div>
 		<%end%>
 	</div>
 </div>

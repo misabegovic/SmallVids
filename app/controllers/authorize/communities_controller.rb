@@ -7,7 +7,8 @@ module Authorize
       favorites if params[:favorites]
       condition_search = params[:search] && params[:search][:tags] != ''
       @video_posts = search(params[:search][:tags], @video_posts) if condition_search
-      @video_posts = @video_posts.order(created_at: :desc).first(20)
+      @video_posts = @video_posts.order(created_at: :desc)
+                                 .first(20)
     end
 
     def show
@@ -15,7 +16,8 @@ module Authorize
       favorites_unapproved if params[:favorites]
       condition_search = params[:search] && params[:search][:tags] != ''
       @video_posts = search(params[:search][:tags], @video_posts) if condition_search
-      @video_posts = @video_posts.order(created_at: :desc).first(20)
+      @video_posts = @video_posts.order(created_at: :desc)
+                                 .first(20)
     end
 
     private
