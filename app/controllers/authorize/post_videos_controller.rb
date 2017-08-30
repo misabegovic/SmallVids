@@ -14,7 +14,6 @@ module Authorize
       resize_tags if @video.tag_list
       @video.is_approved = true if current_user.is_admin
       redirect_to @video if @video.save
-
       render :index unless @video.save
     end
 

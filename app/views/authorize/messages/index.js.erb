@@ -1,1 +1,2 @@
-$("#show_messages").html('<%= j render @messages %>');
+var pageContent = "<%= escape_javascript( render @messages ) %>";
+document.getElementById('show_messages').innerHTML = pageContent;
